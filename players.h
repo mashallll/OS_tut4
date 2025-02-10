@@ -1,6 +1,7 @@
-/* players.h - Player Handling */
 #ifndef PLAYERS_H
 #define PLAYERS_H
+
+#define MAX_PLAYERS 4  // Move MAX_PLAYERS here for global use
 
 typedef struct {
     char name[50];

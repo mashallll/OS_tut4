@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "questions.h"
+#include "players.h"
 
 #define TOTAL_QUESTIONS 12
 
@@ -36,22 +37,11 @@ const char* get_correct_answer(char *category, int value) {
     return questions[0].answer;
 }
 
-/* players.c - Manages players */
-#include <stdio.h>
-#include <string.h>
-#include "players.h"
-
-void update_score(player *players, char *name, int score) {
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (strcmp(players[i].name, name) == 0) {
-            players[i].score += score;
+int game_over() {
+    for (int i = 0; i < TOTAL_QUESTIONS; i++) {
+        if (!questions[i].answered) {
+            return 0; // Game is not over if any question is unanswered
         }
     }
-}
-
-void show_results(player *players) {
-    printf("Final Scores:\n");
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        printf("%s: $%d\n", players[i].name, players[i].score);
-    }
+    return 1; // Game is over if all questions are answered
 }

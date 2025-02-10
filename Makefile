@@ -1,4 +1,3 @@
-/* Makefile */
 all: jeopardy
 
 jeopardy: jeopardy.o questions.o players.o

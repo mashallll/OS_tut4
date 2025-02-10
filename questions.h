@@ -16,5 +16,6 @@ void display_question(char *category, int value);
 int valid_answer(char *category, int value, char *answer);
 int already_answered(char *category, int value);
 const char* get_correct_answer(char *category, int value);
+int game_over();
 
 #endif
