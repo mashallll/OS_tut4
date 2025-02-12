@@ -46,33 +46,40 @@ int main() {
         players[i].score = 0;
     }
 
+    int current_player = 0;  // Start with Player 1
+
     // Game loop
     char category[50];
     int value;
     char answer[100];
+
     while (!game_over()) {
         print_scoreboard(players);
         display_categories();
-        printf("\n%s, Choose a category and value (e.g., Science 200): ", players[0].name);
+
+        printf("\n%s, Choose a category and value (e.g., Science 200): ", players[current_player].name);
         scanf("%49s %d", category, &value);
-        
+
         if (already_answered(category, value)) {
             printf("That question has already been answered. Try again!\n");
             continue;
         }
-        
+
         display_question(category, value);
-        printf("Enter your answer (e.g., 'What is oxygen?'): ");
+        printf("Enter your answer: ");
         getchar();  // Clear newline
         fgets(answer, sizeof(answer), stdin);
         answer[strcspn(answer, "\n")] = 0;  // Remove newline
-        
+
         if (valid_answer(category, value, answer)) {
             printf("Correct! You earn $%d\n", value);
-            update_score(players, players[0].name, value);
+            update_score(players, players[current_player].name, value);
         } else {
             printf("Incorrect! The correct answer was: %s\n", get_correct_answer(category, value));
         }
+
+        // Switch to the next player
+        current_player = (current_player + 1) % MAX_PLAYERS;
 
         printf("\nPress Enter to continue...");
         getchar();
